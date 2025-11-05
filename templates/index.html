@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>🏠 Amara Real Estate</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>🏡 ابحث عن العقار المناسب لك</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" enctype="multipart/form-data" id="propertyForm">
+        <input type="text" name="name" placeholder="الاسم الكامل..." required>
+        <input type="text" name="phone" placeholder="رقم الهاتف..." required>
+
+        <select name="propertyType" id="propertyType">
+            <option>اختر نوع العقار</option>
+            <option>أرض مباني</option>
+            <option>أرض صناعية</option>
+            <option>شقة</option>
+            <option>بيت</option>
+            <option>فيلا</option>
+        </select>
+
+        <input type="text" name="location" placeholder="الموقع أو الكمبوند..." required>
+
+        <input type="text" name="area" placeholder="المساحة (م²)..." class="hidden">
+        <input type="text" name="rooms" placeholder="عدد الغرف..." class="hidden">
+        <input type="text" name="baths" placeholder="عدد الحمامات..." class="hidden">
+        <input type="text" name="priceFrom" placeholder="السعر من (ج.م)..." class="hidden">
+        <input type="text" name="priceTo" placeholder="السعر إلى (ج.م)..." class="hidden">
+
+        <textarea name="notes" placeholder="ملاحظات إضافية..."></textarea>
+
+        <div class="image-upload" id="imageUpload">
+            اسحب الصور هنا أو اضغط لاختيارها
+            <input type="file" name="images" id="fileInput" multiple class="hidden">
+        </div>
+        <div id="imagePreview" class="image-preview"></div>
+
+        <div class="buttons">
+            <button type="submit" id="sendBtn">إرسال</button>
+            <button type="reset" id="clearBtn">مسح</button>
+        </div>
+    </form>
+</div>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
